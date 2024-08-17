@@ -1,16 +1,21 @@
 let quote = document.getElementById("quote");
-let author = document.getElementById("author");
+let author = document.getElementById("author2");
 let btn = document.getElementById("btn");
-
-const url = "http://api.quotable.io/random";
+let category = 'happiness'
 
 let getQuote = () => {
-    fetch(url)
-    .then((data) => data.json())
-    .then ((item) => {
-        quote.innerText = item.content;
-        quote.innerText = item.author;
-    });
+   fetch('https://api.api-ninjas.com/v1/quotes?category=' + category, {
+  method: 'GET',
+  headers: {
+    'X-Api-Key': 'sjnIGOS9RA1ahpUWaEOBKg==5MCbIndPKjXwdmP9'
+    }
+  })
+    .then(response => response.json())
+    .then((data) => {
+        quote.innerText = data[0].quote;
+        author.innerText = data[0].author;
+    })
+    .catch(error => console.error('Error:', error));
 };
 
 window.addEventListener("load", getQuote);
